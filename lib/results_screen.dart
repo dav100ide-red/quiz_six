@@ -4,7 +4,11 @@ import 'package:quiz_six/data/questions.dart';
 import 'package:quiz_six/question_summary.dart';
 
 class ResultsScreen extends StatelessWidget {
-  ResultsScreen({super.key, required this.chosenAnswers});
+  const ResultsScreen({
+    super.key,
+    required this.chosenAnswers,
+    required this.onRestartPress,
+  });
 
   final List<String> chosenAnswers;
 
@@ -22,6 +26,8 @@ class ResultsScreen extends StatelessWidget {
 
     return summary;
   }
+
+  final void Function() onRestartPress;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +57,18 @@ class ResultsScreen extends StatelessWidget {
             SizedBox(height: 30),
             QuestionSummary(summaryData: summaryData),
             SizedBox(height: 30),
-            TextButton(onPressed: () {}, child: Text('Restart quiz')),
+            OutlinedButton.icon(
+              style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                side: BorderSide(color: Color.fromARGB(47, 175, 165, 184)),
+                foregroundColor: Colors.white,
+              ),
+              onPressed: onRestartPress,
+              label: Text('Restart quiz'),
+              icon: Icon(Icons.restart_alt),
+            ),
           ],
         ),
       ),
